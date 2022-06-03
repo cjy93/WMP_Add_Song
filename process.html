@@ -1,0 +1,124 @@
+<html>
+
+<head>
+	<style>
+		h1 {
+			color: #7157ff;
+		}
+
+		hr {
+			display: block;
+			border: 0;
+			border-top: 3px solid #f90;
+			padding: 0;
+		}
+
+		textarea {
+			width: 70%;
+		}
+
+		#div_main {
+			font-family: Sans-serif;
+			margin: auto;
+			margin-top: 30px;
+			width: 500px;
+		}
+
+		#div_left {
+			width: 150px;
+			display: inline-block;
+			float: left;
+		}
+
+		#div_left p {
+			margin-bottom: 19px;
+		}
+
+		#div_right {
+			width: 350px;
+			display: inline-block;
+			float: right;
+		}
+
+		.clear {
+			clear: both;
+		}
+
+		/* table styles */
+		table#table1 {
+			background-color: white;
+			border-collapse: separate;
+			font-size: 0.75em;
+			width: 50%;
+			font-size: 1.0em;
+		}
+
+
+		/* Table Cell Styles */
+		table#table1 th,
+		table#table1 td {
+			border: 1px solid grey;
+			padding: 5px;
+			vertical-align: top;
+		}
+	</style>
+
+	<script>
+		window.onload = function () {
+			document.getElementById("buttons").onclick = function () {
+				// Declare my values to store
+				var title = localStorage['title']
+				var genre = localStorage['genre']
+				var artist = localStorage['artist']
+				var releaseradio = localStorage['releaseRadio']
+				var duration = localStorage['duration']
+				var description = localStorage['description']
+				console.log(description)
+				// put it into an array 
+				var array_inputs = [title, genre, artist, releaseradio, duration, description];
+				// Get the table with id="table1"
+				var table = document.getElementById("table1");
+				console.log(table)
+				// Insert an empty row to the last row of table
+				var row = table.insertRow(-1);
+				// Give variable names to each of the cells per row
+				for (let i = 0; i < 6; i++) {
+					row.insertCell(i).innerHTML = array_inputs[i]
+					console.log(array_inputs[i])
+				}
+			}
+
+		}
+
+
+	</script>
+</head>
+
+<body>
+	<div id="div_main">
+		<h1>
+			Add Song
+		</h1>
+		<hr>
+		Song Added.
+		<hr>
+		<div>
+			<button id="buttons">Add to list</button>
+			<table id="table1">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Genre</th>
+						<th>Artist</th>
+						<th>Release</th>
+						<th>Duration</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody id="body"></tbody>
+			</table>
+		</div>
+	</div>
+</body>
+
+</html>
