@@ -29,7 +29,7 @@ function formChk(evt) {
         //update the error message, highlight colour and Boolean value to prevent submission of form 
     } else {
         nameTxtBox.className = "white";
-        localStorage['title'] = genreTxtBox.value
+        localStorage['title'] = nameTxtBox.value
     }
 
     // For "Genre", set conditions to make box turn yellow
