@@ -23,21 +23,22 @@ function formChk(evt) {
     // -------------------- Conditions --------------------
     // For "Title", set conditions to make box turn yellow
     if (name == "" || !name.replace(/\s/g, "").length) {//if name is empty or only contains white spaces
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML = "<li>Title of song is required</li>";
         nameTxtBox.className = "yellow";
         evt.preventDefault()
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
     } else {
         nameTxtBox.className = "white";
         localStorage['title'] = nameTxtBox.value
     }
 
     // For "Genre", set conditions to make box turn yellow
-    if (genreTypes.indexOf(genre) === -1) { //check against predefined list
+    if (genreTypes.indexOf(genre) === -1) { //check against predefined list. When we put the `indexOf(genre)===-1`
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Genre of song is required</li>";
         genreTxtBox.className = "yellow";
         evt.preventDefault()
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+
     } else {
         genreTxtBox.className = "white";
         localStorage['genre'] = genreTxtBox.value
@@ -46,11 +47,12 @@ function formChk(evt) {
 
     // For "Artist", set conditions to make box turn yellow
     if (artist == "" || !artist.replace(/\s/g, "").length) {
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Artist's name is required</li>";
         artistTxtBox.className = "yellow";
         success = false; //FOR INLINE
         evt.preventDefault()
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+
     } else {
         artistTxtBox.className = "white";
         localStorage['artist'] = artistTxtBox.value;
@@ -60,8 +62,8 @@ function formChk(evt) {
     // only Jquery can check plural selection of radio button, but in JS only singular checking of radio button is allowed.
     // If both the check boxes are unchecked, then highlight the labels as yellow. Otherwise, do nothing
     if (releaseRadio[0].checked == false && releaseRadio[1].checked == false) {
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Release date is required</li>";
-
         releaseRadio[0].nextSibling.className = "yellow"; // make label of first button yellow
         releaseRadio[1].nextSibling.className = "yellow"; // make label of second button yellow
         evt.preventDefault()
@@ -79,10 +81,10 @@ function formChk(evt) {
 
     // For "Duration", set conditions to make box turn yellow
     if (duration == "" || !duration.replace(/\s/g, "").length) {
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Duration of song is required</li>";
         durationTxtBox.className = "yellow";
         evt.preventDefault()
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
     } else { //if not empty or only blank spaces
         if (duration.includes(".") == false) {
             evt.preventDefault()
@@ -111,15 +113,15 @@ function formChk(evt) {
             localStorage['duration'] = durationTxtBox.value
 
         }
-        // ALSO STILL HIGHLIGHT ERROR TO THEM STATING DURATION IN WRONG FORMAT, ROUND OFF TO CORRECT FORMAT. USER EXPERIENCE POINT OF VIEW
+
     }
 
     // For "Description", set conditions to make box turn yellow
     if (description == "" || !description.replace(/\s/g, "").length) {
+        //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Description of song is required</li>";
         descriptionTxtBox.className = "yellow";
         evt.preventDefault()
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
     } else {
         descriptionTxtBox.className = "white"
         // Add it to local storage to use in "process.html" to append to a table
@@ -136,6 +138,7 @@ function whiteBgReset(evt) {
     var releaseRadio = document.getElementsByName("install")
     var durationTxtBox = document.getElementById("txtDuration")//Retrieve the corresponding element	
     var descriptionTxtBox = document.getElementById("txtDescription")//Retrieve the corresponding element
+    var msgBox = document.getElementById("divMessage")//Retrieve the corresponding element
 
     // make all reset to white bg
     nameTxtBox.className = "white"
@@ -146,6 +149,8 @@ function whiteBgReset(evt) {
     durationTxtBox.className = "white"
     descriptionTxtBox.className = "white"
     document.getElementById("descriptionContentCount").innerHTML = "Character Count: 0"
+    document.getElementById("descriptionContentCountLeft").innerHTML = "Character Count: 1000"
+    msgBox.innerHTML = ""
 
 }
 
@@ -158,16 +163,10 @@ function countCharacters(evt) {
 }
 
 
-// const function1 = () => {
-//     console.log("helo")
-// };
+// Count number of words left in description
+function countCharLeft(evt) {
+    output = 1000 - document.getElementById("txtDescription").value.length
+    document.getElementById("descriptionContentCountLeft").innerHTML = "Character Count Left: " + output
+    return output
+}
 
-// const function2 = env => {
-//     console.log("hee")
-// };
-// export const constants = "hello";
-
-// export default {
-//     function1,
-//     function2
-// };

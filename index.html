@@ -57,11 +57,22 @@
 			color: grey;
 			font-size: 0.7em;
 		}
+
+		#descriptionContentCountLeft {
+			color: grey;
+			font-size: 0.7em;
+		}
+
+		input:focus,
+		select:focus,
+		textarea:focus {
+			background-color: rgba(0, 255, 234, 0.081);
+		}
 	</style>
 
 	<script src="index.js"></script>
 	<script>
-		// import functions here `import {costants, function1, function 2} from './index.js'
+
 
 		// title and artist
 		window.onload = function () {
@@ -71,7 +82,9 @@
 
 			document.getElementById("btnSubmit").addEventListener("click", formChk);
 			document.getElementById("btnReset").onclick = whiteBgReset
-			document.getElementById("txtDescription").onkeyup = countCharacters
+			// document.getElementById("txtDescription").onkeyup = countCharacters
+			document.getElementById("txtDescription").addEventListener("keyup", countCharacters)
+			document.getElementById("txtDescription").addEventListener("keyup", countCharLeft)
 			document.getElementById("txtDuration").onkeydown = function (evt) {
 				var charCode = (evt.which) ? evt.which : evt.keyCode;
 				if ((charCode != 190 && charCode > 31
@@ -122,6 +135,8 @@
 			<textarea id="txtDescription" name="txtDescription"></textarea><br><span
 				id="descriptionContentCount">Character
 				Count: 0</span>
+			<br><span id="descriptionContentCountLeft">Character
+				Count: 1000</span>
 			<br>
 			<input type="submit" id="btnSubmit">
 			<input type="reset" id="btnReset" value="Reset">
