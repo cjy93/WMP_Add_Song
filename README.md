@@ -13,7 +13,7 @@ Created a simple app to add songs to a temporary table in another page
 5) Added Word count and remaining word count under the "Description" Textbox.  
 6) Reset button allows you to clear all the inputs, remove the yellow highlighting and also the reminder messages.  
 7) Once you have successfully completed the form(by clicking submit), you will be brought to "process.html"  
-Here is what a completed form should look like:
+Here is what a completed form should look like:  
 ![image](https://user-images.githubusercontent.com/40426221/171987054-77e65e2c-dded-473b-91f9-1d10292b1698.png)
 
 
