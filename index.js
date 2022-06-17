@@ -86,33 +86,33 @@ function formChk(evt) {
         durationTxtBox.className = "yellow";
         evt.preventDefault()
     } else { //if not empty or only blank spaces
-        if (duration.includes(".") == false) {
+        // if (duration.includes(".") == false) {
+        //     evt.preventDefault()
+        //     document.getElementById("durationAlert").innerHTML = "Please put a decimal point for Duration"
+        //     durationTxtBox.className = "yellow";
+        // } else {
+        // convert to 2 dp first
+        var time_raw = Number(durationTxtBox.value).toFixed(2)
+        // if the number behind the decimal point is more than "59", adjust the number by adding 1 to the whole number and subtracting 60 from decimal point
+        var decimal = time_raw - Math.floor(time_raw)
+        if (decimal >= 0.6) {
             evt.preventDefault()
-            document.getElementById("durationAlert").innerHTML = "Please put a decimal point for Duration"
-            durationTxtBox.className = "yellow";
+            var new_decimal = decimal - 0.6
+            var time = Math.floor(time_raw) + 1
+            time = time + new_decimal
+            time = time.toFixed(2)
+            // Additionally, it is also needed to inform user that they might have by accident included wrong number of decimal places. Boost user experience!
+            document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
         } else {
-            // convert to 2 dp first
-            var time_raw = Number(durationTxtBox.value).toFixed(2)
-            // if the number behind the decimal point is more than "59", adjust the number by adding 1 to the whole number and subtracting 60 from decimal point
-            var decimal = time_raw - Math.floor(time_raw)
-            if (decimal >= 0.6) {
-                evt.preventDefault()
-                var new_decimal = decimal - 0.6
-                var time = Math.floor(time_raw) + 1
-                time = time + new_decimal
-                time = time.toFixed(2)
-                // Additionally, it is also needed to inform user that they might have by accident included wrong number of decimal places. Boost user experience!
-                document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
-            } else {
-                time = time_raw
-            }
-            durationTxtBox.value = time
-            console.log("time: " + time)
-            durationTxtBox.className = "white";
-            // Add it to local storage to use in "process.html" to append to a table
-            localStorage['duration'] = durationTxtBox.value
-
+            time = time_raw
         }
+        durationTxtBox.value = time
+        console.log("time: " + time)
+        durationTxtBox.className = "white";
+        // Add it to local storage to use in "process.html" to append to a table
+        localStorage['duration'] = durationTxtBox.value
+
+        // }
 
     }
 
