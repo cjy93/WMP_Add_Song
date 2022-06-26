@@ -40,10 +40,12 @@
 			float: right;
 		}
 
+		/* field becomes yellow if incorrect input */
 		.yellow {
 			background-color: yellow;
 		}
 
+		/* field white if corect input */
 		.white {
 			background-color: white;
 		}
@@ -63,6 +65,7 @@
 			font-size: 0.7em;
 		}
 
+		/* Interactive selection feature styling */
 		input:focus,
 		select:focus,
 		textarea:focus {
@@ -70,28 +73,28 @@
 		}
 	</style>
 
+	<!-- Main Script imported from index.js -->
 	<script src="index.js"></script>
 	<script>
 
-
-		// title and artist
+		// main 
 		window.onload = function () {
-
-			// main 
-
-
+			// Check form conditions once click "submit" button
 			document.getElementById("btnSubmit").addEventListener("click", formChk);
+			// Make all the fields back to white when click "reset" button
 			document.getElementById("btnReset").onclick = whiteBgReset
+			// In Description box, count the number of characters typed and characters left and display below the text box
 			// document.getElementById("txtDescription").onkeyup = countCharacters
 			document.getElementById("txtDescription").addEventListener("keyup", countCharacters)
 			document.getElementById("txtDescription").addEventListener("keyup", countCharLeft)
+			// Under Duration field, make sure only to allow NUMBERS and DECIMAL point as input. Obsolete all other characters
 			document.getElementById("txtDuration").onkeydown = function (evt) {
 				var charCode = (evt.which) ? evt.which : evt.keyCode;
 				if ((charCode != 190 && charCode > 31
 					&& (charCode < 48 || charCode > 57))) {
 					evt.preventDefault()
 				}
-			} //https://stackoverflow.com/questions/2808184/restricting-input-to-textbox-allowing-only-numbers-and-decimal-point
+			} //Tutorial on: https://stackoverflow.com/questions/2808184/restricting-input-to-textbox-allowing-only-numbers-and-decimal-point
 		}
 	</script>
 </head>
@@ -102,7 +105,7 @@
 			Add Song
 		</h1>
 		<hr>
-		<!-- need to change method="get" because "post" wont work in my new code whyyyyyy? -->
+		<!-- Need to change method="get" because "post" wont work in my new code-->
 		<form action="process.html" method="get">
 			<div id="div_left">
 				<p>Title:</p>
@@ -123,9 +126,9 @@
 					</select>
 				</p>
 				<p><input type="text" id="txtArtist" name="txtArtist"></p>
-				<p><input type="radio" id="release_Yes" name="install"><label for="release_Yes">Yes</label><input
-						type="radio" id="release_No" name="install"><label for="release_No">No</label></p>
-				<!-- added span with id="durationAlert" -->
+				<p><input type="radio" id="release_Yes" name="release"><label for="release_Yes">Yes</label><input
+						type="radio" id="release_No" name="release"><label for="release_No">No</label></p>
+				<!-- Added span with id="durationAlert" -->
 				<p><input type="text" id="txtDuration" name="txtDuration"></p><span id="durationAlert"></span>
 			</div>
 			<!-- This div was to clear the format above "description"-->
@@ -147,12 +150,3 @@
 </body>
 
 </html>
-
-
-
-<!-- 3 June -->
-<!-- // PAINFUL: tried numerous methods to import from js but not working. HOw to import non constructor functions?
-			// Even if it is constructor, how to import also?
-			// how to put constructor and non constructor function in event handler?
-			// https://www.tutorialrepublic.com/faq/how-to-include-a-javascript-file-in-another-javascript-file.php
-			// https://stackoverflow.com/questions/67191286/crbug-1173575-non-js-module-files-deprecated-chromewebdata-index%EA%9E%89530595551 -->

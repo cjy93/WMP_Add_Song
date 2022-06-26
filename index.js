@@ -1,18 +1,18 @@
 function formChk(evt) {
-    //-------------------- DOM objects --------------------
-    var nameTxtBox = document.getElementById("txtTitle")//Retrieve the corresponding element;
-    var genreTxtBox = document.getElementById("selectType")//Retrieve corresponding element
-    var artistTxtBox = document.getElementById("txtArtist")//Retrieve the corresponding element	
-    var releaseRadio = document.getElementsByName("install")
-    var durationTxtBox = document.getElementById("txtDuration")//Retrieve the corresponding element	
-    var descriptionTxtBox = document.getElementById("txtDescription")//Retrieve the corresponding element
+    //-------------------- Retrieve DOM objects --------------------
+    var nameTxtBox = document.getElementById("txtTitle")// DOM object of Title;
+    var genreTxtBox = document.getElementById("selectType")//DOM object of Genre;
+    var artistTxtBox = document.getElementById("txtArtist")//DOM object of Artist;
+    var releaseRadio = document.getElementsByName("release")//DOM object of Release;
+    var durationTxtBox = document.getElementById("txtDuration")//DOM object of Duration;
+    var descriptionTxtBox = document.getElementById("txtDescription")//DOM object of Description;
 
-    // fix "Genre" list
+    // fix "Genre" list to only these types (as per assignment)
     const genreTypes = ["classical", "funk", "rock", "pop"]
 
     //--------------------value of DOM objects--------------------
-    var msgBox = document.getElementById("divMessage")//Retrieve the corresponding message box element
-    msgBox.innerHTML = "";
+    var msgBox = document.getElementById("divMessage")//Retrieve the corresponding description box element
+    msgBox.innerHTML = ""; // Assign Description box to be empty
     var name = nameTxtBox.value  //Retrieve the input name
     var genre = genreTxtBox.value //Retrieve genre value
     var artist = artistTxtBox.value//Retrieve the artist name	
@@ -21,9 +21,9 @@ function formChk(evt) {
 
 
     // -------------------- Conditions --------------------
-    // For "Title", set conditions to make box turn yellow
+    // For "Title", set conditions to make box turn yellow or white
     if (name == "" || !name.replace(/\s/g, "").length) {//if name is empty or only contains white spaces
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+        //update the error message, highlight colour and prevent submission of form with 'preventDefault()
         msgBox.innerHTML = "<li>Title of song is required</li>";
         nameTxtBox.className = "yellow";
         evt.preventDefault()
@@ -32,9 +32,9 @@ function formChk(evt) {
         localStorage['title'] = nameTxtBox.value
     }
 
-    // For "Genre", set conditions to make box turn yellow
-    if (genreTypes.indexOf(genre) === -1) { //check against predefined list. When we put the `indexOf(genre)===-1`
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+    // For "Genre", set conditions to make box turn yellow or white
+    if (genreTypes.indexOf(genre) === -1) { //check against predefined list. When we put the `indexOf(genre)===-1`, it means selection is not in the list 'genreTypes'
+        // Update the error message, highlight colour and prevent submission of form 
         msgBox.innerHTML += "<li>Genre of song is required</li>";
         genreTxtBox.className = "yellow";
         evt.preventDefault()
@@ -45,12 +45,12 @@ function formChk(evt) {
     }
 
 
-    // For "Artist", set conditions to make box turn yellow
+    // For "Artist", set conditions to make box turn yellow or white
     if (artist == "" || !artist.replace(/\s/g, "").length) {
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+        //update the error message, highlight colour and prevent submission of form 
         msgBox.innerHTML += "<li>Artist's name is required</li>";
         artistTxtBox.className = "yellow";
-        success = false; //FOR INLINE
+        // success = false; // required only FOR INLINE event handling
         evt.preventDefault()
 
     } else {
@@ -58,11 +58,11 @@ function formChk(evt) {
         localStorage['artist'] = artistTxtBox.value;
     }
 
-    // For "Genre", set conditions to make box turn yellow
-    // only Jquery can check plural selection of radio button, but in JS only singular checking of radio button is allowed.
+    // For "Genre", set conditions to make box turn yellow or white
+    // only Jquery can check plural selection of radio button, but in native JS only singular checking of radio button is allowed. Hence for every step, I need to check both index 0 and 1 of `releaseRadio`
     // If both the check boxes are unchecked, then highlight the labels as yellow. Otherwise, do nothing
     if (releaseRadio[0].checked == false && releaseRadio[1].checked == false) {
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+        // Update the error message, highlight yellow colour and prevent submission of form 
         msgBox.innerHTML += "<li>Release date is required</li>";
         releaseRadio[0].nextSibling.className = "yellow"; // make label of first button yellow
         releaseRadio[1].nextSibling.className = "yellow"; // make label of second button yellow
@@ -73,24 +73,26 @@ function formChk(evt) {
 
         // Add the value of the checked label to local storage to use in "process.html" to append to a table
         if (releaseRadio[0].checked == true) {
-            localStorage['releaseRadio'] = releaseRadio[0].nextSibling.innerHTML // 'Yes'
+            localStorage['releaseRadio'] = releaseRadio[0].nextSibling.innerHTML // if selected 'Yes'
         } else if (releaseRadio[1].checked == true) {
-            localStorage['releaseRadio'] = releaseRadio[1].nextSibling.innerHTML  // 'No'
+            localStorage['releaseRadio'] = releaseRadio[1].nextSibling.innerHTML  // if selected'No'
         }
     }
 
-    // For "Duration", set conditions to make box turn yellow
+    // For "Duration", set conditions to make box turn yellow or white
     if (duration == "" || !duration.replace(/\s/g, "").length) {
-        //update the error message, highlight colour and Boolean value to prevent submission of form 
+        //update the error message, highlight colour and prevent submission of form 
         msgBox.innerHTML += "<li>Duration of song is required</li>";
         durationTxtBox.className = "yellow";
         evt.preventDefault()
-    } else { //if not empty or only blank spaces
-        // if (duration.includes(".") == false) {
-        //     evt.preventDefault()
-        //     document.getElementById("durationAlert").innerHTML = "Please put a decimal point for Duration"
-        //     durationTxtBox.className = "yellow";
-        // } else {
+        //if not empty or only blank spaces
+    } else {
+        // added code if want to prevent submission if no decimal was detected. Removed since it was OPTIONAL condition
+        /*if (duration.includes(".") == false) {
+            evt.preventDefault()
+            document.getElementById("durationAlert").innerHTML = "Please put a decimal point for Duration"
+            durationTxtBox.className = "yellow";
+        } else { */
         // convert to 2 dp first
         var time_raw = Number(durationTxtBox.value).toFixed(2)
         // if the number behind the decimal point is more than "59", adjust the number by adding 1 to the whole number and subtracting 60 from decimal point
@@ -108,15 +110,16 @@ function formChk(evt) {
         }
         durationTxtBox.value = time
         console.log("time: " + time)
+        // Set box to white
         durationTxtBox.className = "white";
         // Add it to local storage to use in "process.html" to append to a table
         localStorage['duration'] = durationTxtBox.value
 
-        // }
+        // }  from the else section removed
 
     }
 
-    // For "Description", set conditions to make box turn yellow
+    // For "Description", set conditions to make box turn yellow or white
     if (description == "" || !description.replace(/\s/g, "").length) {
         //update the error message, highlight colour and Boolean value to prevent submission of form 
         msgBox.innerHTML += "<li>Description of song is required</li>";
@@ -129,16 +132,16 @@ function formChk(evt) {
     }
 }
 
-//function to reset the colour of the textboxes to white if necessary
+// Function to reset the colour of the textboxes to white if necessary
 function whiteBgReset(evt) {
     // DOM objects
-    var nameTxtBox = document.getElementById("txtTitle")//Retrieve the corresponding element;
-    var genreTxtBox = document.getElementById("selectType")//Retrieve corresponding element
-    var artistTxtBox = document.getElementById("txtArtist")//Retrieve the corresponding element	
-    var releaseRadio = document.getElementsByName("install")
-    var durationTxtBox = document.getElementById("txtDuration")//Retrieve the corresponding element	
-    var descriptionTxtBox = document.getElementById("txtDescription")//Retrieve the corresponding element
-    var msgBox = document.getElementById("divMessage")//Retrieve the corresponding element
+    var nameTxtBox = document.getElementById("txtTitle")//DOM object of Title;
+    var genreTxtBox = document.getElementById("selectType")//DOM object of Genre;
+    var artistTxtBox = document.getElementById("txtArtist")//DOM object of Artist;
+    var releaseRadio = document.getElementsByName("release")//DOM object of Release;
+    var durationTxtBox = document.getElementById("txtDuration")//DOM object of Duration;
+    var descriptionTxtBox = document.getElementById("txtDescription")//DOM object of Description;
+    var msgBox = document.getElementById("divMessage")//DOM object of error messages;
 
     // make all reset to white bg
     nameTxtBox.className = "white"
@@ -150,6 +153,7 @@ function whiteBgReset(evt) {
     descriptionTxtBox.className = "white"
     document.getElementById("descriptionContentCount").innerHTML = "Character Count: 0"
     document.getElementById("descriptionContentCountLeft").innerHTML = "Character Count: 1000"
+    // Clear away all error messages
     msgBox.innerHTML = ""
 
 }
@@ -163,7 +167,7 @@ function countCharacters(evt) {
 }
 
 
-// Count number of words left in description
+// Count number of words left in Description
 function countCharLeft(evt) {
     output = 1000 - document.getElementById("txtDescription").value.length
     document.getElementById("descriptionContentCountLeft").innerHTML = "Character Count Left: " + output
