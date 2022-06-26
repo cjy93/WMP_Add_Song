@@ -97,21 +97,34 @@ function formChk(evt) {
         var time_raw = Number(durationTxtBox.value).toFixed(2)
         // if the number behind the decimal point is more than "59", adjust the number by adding 1 to the whole number and subtracting 60 from decimal point
         var decimal = time_raw - Math.floor(time_raw)
+        // if the decimal values are more than 0.6 (1 min) or more than 2 decimal places (4 characters)
         if (decimal >= 0.6) {
+            console.log("time_raw " + time_raw)
+            console.log("decimal " + decimal)
             var new_decimal = decimal - 0.6
             var time = Math.floor(time_raw) + 1
             time = time + new_decimal
             time = time.toFixed(2)
             // Additionally, it is also needed to inform user that they might have by accident included wrong number of decimal places. Boost user experience!
             document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
+            durationTxtBox.className = "yellow";
+            evt.preventDefault()
+            // If the decimal number is less than 0.6, but is more than 2 dp, then round off the typed value to 2 dp.
+        } else if (decimal.toString().length > 4) {
+            time = Number(time_raw).toFixed(2)
+            document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
+            durationTxtBox.className = "yellow";
             evt.preventDefault()
         } else {
+            // This case, all the Duration input passed
             time = time_raw
+            // Set box to white
+            durationTxtBox.className = "white";
         }
         durationTxtBox.value = time
         console.log("time: " + time)
-        // Set box to white
-        durationTxtBox.className = "white";
+
+
         // Add it to local storage to use in "process.html" to append to a table
         localStorage['duration'] = durationTxtBox.value
 
