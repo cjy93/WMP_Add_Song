@@ -4,7 +4,7 @@ Created a simple app to add songs to a temporary table in another page
 ## App index.html
 1) As you are typing in the text box, the in focus features kicks in, highlighting the text box that you are typing on in blue
 ![image](https://user-images.githubusercontent.com/40426221/171986825-bcb89972-5a33-4c1a-9afc-28499df97504.png)
-2) If you leave any component blank/ type only spaces, the app will highlight it in yellow and give reminder messages at the bottom
+2) If you leave any component blank/ type only spaces, the app will highlight it in yellow and give reminder messages at the bottom  
 ![image](https://user-images.githubusercontent.com/40426221/171986872-6e59a04d-6480-44b1-97fc-375e2847f892.png)
 3) You will not be able to type any non numeric numbers in "Duration" input
 ![image](https://user-images.githubusercontent.com/40426221/171986924-2162e2c6-a1e9-4281-be66-c6dab7ed7152.png)
