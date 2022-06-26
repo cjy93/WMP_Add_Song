@@ -112,6 +112,7 @@ function formChk(evt) {
             // If the decimal number is less than 0.6, but is more than 2 dp, then round off the typed value to 2 dp.
         } else if (decimal.toString().length > 4) {
             time = Number(time_raw).toFixed(2)
+            // Additionally, it is also needed to inform user that they might have by accident included wrong number of decimal places. Boost user experience!
             document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
             durationTxtBox.className = "yellow";
             evt.preventDefault()
@@ -121,6 +122,7 @@ function formChk(evt) {
             // Set box to white
             durationTxtBox.className = "white";
         }
+        // edit the values in the box by converting to appropriate display of duration
         durationTxtBox.value = time
         console.log("time: " + time)
 
