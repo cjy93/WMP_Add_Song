@@ -8,6 +8,8 @@ Created a simple app to add songs to a temporary table in another page
 ![image](https://user-images.githubusercontent.com/40426221/171986872-6e59a04d-6480-44b1-97fc-375e2847f892.png)
 3) You will not be able to type any non numeric numbers in "Duration" input
 ![image](https://user-images.githubusercontent.com/40426221/171986924-2162e2c6-a1e9-4281-be66-c6dab7ed7152.png)
+4) If you type Duration like 13.4567, the app will round it to 2 decimal places like: 13.46 and at the same time, alert the user that they have accidentally indicated more than 2 decimal places.
+
 4) Added Word count and remaining word count under the "Description" Textbox.  
 5) Reset button allows you to clear all the inputs, remove the yellow highlighting and also the reminder messages.  
 6) Once you have successfully completed the form(by clicking submit), you will be brought to "process.html"  
