@@ -94,13 +94,15 @@ function formChk(evt) {
             durationTxtBox.className = "yellow";
         } else { */
         // convert to 2 dp first
-        var time_raw = Number(durationTxtBox.value).toFixed(2)
+        var time_raw = Number(durationTxtBox.value)
         // if the number behind the decimal point is more than "59", adjust the number by adding 1 to the whole number and subtracting 60 from decimal point
-        var decimal = time_raw - Math.floor(time_raw)
-        // if the decimal values are more than 0.6 (1 min) or more than 2 decimal places (4 characters)
+        var decimal = time_raw - Math.trunc(time_raw)
+        console.log("time_raw " + time_raw)
+        console.log("decimal " + decimal)
+        console.log("floor " + Math.floor(time_raw))
+        console.log("decimal with string " + time_raw.toString().split(".")[1].length)
+        // if the decimal values are more than 0.6 (1 min)
         if (decimal >= 0.6) {
-            console.log("time_raw " + time_raw)
-            console.log("decimal " + decimal)
             var new_decimal = decimal - 0.6
             var time = Math.floor(time_raw) + 1
             time = time + new_decimal
@@ -110,7 +112,7 @@ function formChk(evt) {
             durationTxtBox.className = "yellow";
             evt.preventDefault()
             // If the decimal number is less than 0.6, but is more than 2 dp, then round off the typed value to 2 dp.
-        } else if (decimal.toString().length > 4) {
+        } else if (time_raw.toString().split(".")[1].length > 2) {
             time = Number(time_raw).toFixed(2)
             // Additionally, it is also needed to inform user that they might have by accident included wrong number of decimal places. Boost user experience!
             document.getElementById("durationAlert").innerHTML = "Please check you have input in the format mins:ss where there are only 2 decimal points allowed. Otherwise, we have converted to 2 dp for you"
