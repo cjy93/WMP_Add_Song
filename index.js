@@ -183,7 +183,6 @@ function countCharacters(evt) {
     return output
 }
 
-
 // Count number of words left in Description
 function countCharLeft(evt) {
     output = 1000 - document.getElementById("txtDescription").value.length
